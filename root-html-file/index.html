@@ -6,6 +6,7 @@
     <title>Coexisting Vue Microfrontends</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="importmap-type" content="systemjs-importmap">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/single-spa/4.3.7/system/single-spa.min.js" as="script" crossorigin="anonymous" />
     <script type="systemjs-importmap">
       {
         "imports": {
@@ -13,13 +14,13 @@
           "app1": "http://localhost:8081/app.js",
           "app2": "http://localhost:8082/app.js",
           "admin-front": "http://localhost:8083/app.js",
+          "custorm": "http://localhost:8084/app.js",
           "single-spa": "https://cdnjs.cloudflare.com/ajax/libs/single-spa/4.3.7/system/single-spa.min.js",
           "vue": "https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js",
           "vue-router": "https://cdn.jsdelivr.net/npm/vue-router@3.0.7/dist/vue-router.min.js"
         }
       }
     </script>
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/single-spa/4.3.7/system/single-spa.min.js" as="script" crossorigin="anonymous" />
     <link rel="preload" href="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js" as="script" crossorigin="anonymous" />
     <script src="https://unpkg.com/import-map-overrides@1.7.2/dist/import-map-overrides.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/systemjs/6.1.1/system.min.js"></script>
@@ -56,10 +57,15 @@
             location => location.pathname.startsWith('/app2')
           )
           singleSpa.registerApplication(
-            'admin-front',
-            () => System.import('admin-front'),
-            location => location.pathname.startsWith('/admin-front')
-          )
+                'admin-front',
+                () => System.import('admin-front'),
+                location => location.pathname.startsWith('/admin-front')
+            )
+            singleSpa.registerApplication(
+                'custorm',
+                () => System.import('custorm'),
+                location => location.pathname.startsWith('/custorm')
+            )
           singleSpa.start();
         })
       })()

@@ -3,7 +3,8 @@
     <div id="nav">
       <router-link to="/app1">App1</router-link> |
       <router-link to="/app2">App2</router-link> |
-      <router-link to="/admin-front">admin-front</router-link>
+      <router-link to="/admin-front">admin-front</router-link> |
+      <router-link to="/custorm">custorm</router-link>
     </div>
     <router-view/>
   </div>
