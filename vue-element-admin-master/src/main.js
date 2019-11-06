@@ -1,3 +1,4 @@
+import './set-public-path'
 import Vue from 'vue'
 
 import Cookies from 'js-cookie'
@@ -28,6 +29,7 @@ import * as filters from './filters' // global filters
  * please remove it before going online! ! !
  */
 import { mockXHR } from '../mock'
+import singleSpaVue from 'single-spa-vue'
 // if (process.env.NODE_ENV === 'production') {
 //
 // }
@@ -43,9 +45,15 @@ Object.keys(filters).forEach(key => {
 
 Vue.config.productionTip = false
 
-new Vue({
-  el: '#app',
-  router,
-  store,
-  render: h => h(App)
+const vueLifecycles = singleSpaVue({
+  Vue,
+  appOptions: {
+    render: (h) => h(App),
+    router,
+    store
+  }
 })
+
+export const bootstrap = vueLifecycles.bootstrap
+export const mount = vueLifecycles.mount
+export const unmount = vueLifecycles.unmount
